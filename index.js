@@ -1,4 +1,4 @@
-import * as StfSelect  from "StfSelect";
-import * as StfSelectOption from "StfSelectOption";
+import * as StfSelect  from "./StfSelect.vue";
+import * as StfSelectOption from "./StfSelectOption.vue";
 
-export {StfSelectOption, StfSelect}
+export {StfSelectOption, StfSelect};
