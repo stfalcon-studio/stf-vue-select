@@ -1,0 +1,33 @@
+<div
+    :class="{ 'stf-select_has-value': value !== null && value !== undefined ? true : false, 'stf-select_opened': isOpened, 'stf-select_empty': !options || !options.length}"
+    @keydown="keyDown" 
+    @keypress="keyPress" 
+    @click.stop="open"
+    @unblur="onUnblur"
+    class="stf-select stf-select_sm">
+    <div class="stf-select__container">
+        <div class="stf-select__inner-wrapper">
+            <div class="stf-select__value">
+                <slot name="value"></slot>
+            </div>
+            <div class="stf-select__placeholder">
+                <slot name="label"></slot>
+            </div>
+        </div>
+
+        <div :tabindex="isOpened ? -1 : 0" @focus="onSelectFocus" class="stf-select__search-input">
+            <slot name="search-input"></slot>
+        </div>
+        <div :select-id="idSelect" :class="{'stf-select_opened': isOpened, 'stf-select_empty': !options || !options.length}"
+            @keydown="keyDown"  class="stf-select__options-wraped">
+            <div v-if="!isNeedHideOption" class="stf-select__options stf-select-options"
+                @mousewheel="onMouseWheal"
+                @scroll="loadMore"
+            >
+                <div class="stf-select__options-container">
+                    <slot></slot>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+{
+  "name": "stf-vue-select",
+  "version": "0.1.0",
+  "description": "select vue",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stfalcon-studio/stf-vue-select.git"
+  },
+  "keywords": [
+    "select",
+    "vue",
+    "vue-select",
+    "dropdown",
+    "vue-dropdown"
+  ],
+  "author": "Andrej Sjagrovskij",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stfalcon-studio/stf-vue-select/issues"
+  },
+  "homepage": "https://github.com/stfalcon-studio/stf-vue-select#readme"
+}
