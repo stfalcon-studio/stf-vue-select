@@ -1,4 +1,22 @@
-@import "../../../../web/style/partials/variable";
+$dark1-color: #272939;
+$dark2-color: #2E3044;
+$dark3-color: #3B3D51;
+$grey-color: #888aa3;
+$grey-transparent-color: rgba(136, 138, 163, 0.3);
+$white-color: #FFFFFF;
+$light1-color: #C9CDDB;
+$light2-color: #F0F1F5;
+$light3-color: #F5F5F7;
+$light4-color: #F9FAFC;
+$blue-1-color: #47A7D7;
+$blue-2-color: #7FDCF5;
+$orange-1-color: #FC8054;
+$orange-2-color: #FF9C4A;
+$red-color: #e05151;
+$green-1-color: #60ae5e;
+$green-2-color: #98d177;
+$pink-color: #F66F7B;
+$shadow : 0 2px 4px 0 rgba(124,126,167,.3);
 
 .stf-select {
   height: 40px;
@@ -96,7 +114,7 @@
       display: inline-block;
       width: 20px;
       height: 20px;
-      background: url("../../../../web/img/icons/icn-done-cargo.svg") center no-repeat;
+      background: url("./icn-done-cargo.svg") center no-repeat;
       position: absolute;
       top: 50%;
       right: 4px;
@@ -104,7 +122,7 @@
     }
   }
 
-  &:hover {
+  &:hover, &:focus {
     background: rgba(135, 138, 163, .1);
   }
 }

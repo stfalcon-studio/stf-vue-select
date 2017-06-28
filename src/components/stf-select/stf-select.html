@@ -23,6 +23,8 @@
             <div v-if="!isNeedHideOption" class="stf-select__options stf-select-options"
                 @mousewheel="onMouseWheal"
                 @scroll="loadMore"
+
+                role="combobox" aria-haspopup="true" aria-expanded="false"
             >
                 <div class="stf-select__options-container">
                     <slot></slot>

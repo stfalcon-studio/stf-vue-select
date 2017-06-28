@@ -1,6 +1,6 @@
 <script>
 import { eventHub } from './even-hub.js';
-import { findAncestor } from '../../lib/dom-lib';
+import { findAncestor } from './dom-lib';
 
 export default {
     name: 'stf-select-option',
@@ -64,4 +64,3 @@ export default {
 </script>
 
 <template src="./stf-select-option.html"></template>
-
