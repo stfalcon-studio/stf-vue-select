@@ -1,4 +1,4 @@
-# stf-vue-select
+# stf-vue-select VUE2
 
 > stf-vue-select - most flexable and customized select
 
