@@ -63,13 +63,13 @@ export default {
         };
     },
 
-    destroyed() {
+    beforeDestroy() {
         document.body.removeChild(this.__selectOptionsWrapEl);
         window.removeEventListener("scroll", this._runOnScroll);
         window.removeEventListener("resize", this._runOnResize);
         window.removeEventListener("click", this._runOnWindowClick);
         eventHub.$off('stf-select-option.selected', this._optionSelectedCallback);
-        eventHub.$off('stf-select-option.mounted', this._onOptionsMounted);
+        eventHub.$off('stf-select-option.mounted', this._onOptionMounted);
         eventHub.$off("stf-select-option.destroyed", this._onOptionDestroyed);
         eventHub.$off("stf-select.opened", this._onOpenedSelect);
     },
@@ -103,11 +103,13 @@ export default {
                 case 13:
                     if (!this.isOpened) {
                         this._open();
-                    } else {
+                    } else if (!this.value) {
                         const option = document.querySelector(`.stf-select__options-wraped[select-id="${this.idSelect}"] .stf-select-option`);
                         if (option) {
                             option.click();
                         }
+                    } else {
+                        this._close();
                     }
 
                     break;
@@ -232,6 +234,11 @@ export default {
                 if (inputEl) {
                     inputEl.focus();
                     inputEl.select();
+                } else {
+                    const searchInpitEl = this.$el.querySelector(".stf-select__search-input") 
+                    if (searchInpitEl && searchInpitEl !== document.activeElement) {
+                        searchInpitEl.focus();
+                    }
                 }
             }
 
@@ -261,7 +268,7 @@ export default {
         _keyArrowUp(event) {
             const elements = this._getArrayElementForFocus();
             const currentFocusedIndex = this._getCurentFocuseIndex(elements);
-            let prev = currentFocusedIndex === undefined ? 0 : (currentFocusedIndex - 1);
+            let prev = currentFocusedIndex === undefined ? -1 : (currentFocusedIndex - 1);
 
             if (prev < 0) {
                 if (elements.length) prev = elements.length - 1;

@@ -12,7 +12,7 @@ export default {
         };
     },
 
-    destroyed() {
+    beforeDestroy() {
         eventHub.$emit("stf-select-option.destroyed",
             {
                 option: this,

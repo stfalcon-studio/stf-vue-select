@@ -180,6 +180,10 @@ $shadow : 0 2px 4px 0 rgba(124,126,167,.3);
       input {
         visibility: visible;
         border-radius: 2px 2px 0 0;
+        height: 32px;
+        font-size: 12px;
+        padding: 0 8px;
+        width: 100%;
       }
     }
   }

@@ -23,20 +23,20 @@ class EventHub {
                 throw new ArgumentExceptions(`Callback can not be used twice`); 
             }
         } else {
-            throw new ArgumentExceptions(`Callback can not be ${typeof callback}`); 
+            throw new ArgumentExceptions(`Callback can not be ${typeof callback} event ${name}`); 
         }
     }
 
     $off(name, callback) {
         if (typeof callback === 'function') {
             if (!this.eventsCollection[name]) {
-                throw new ArgumentExceptions(`You don't have callback on ${name}`); 
+                throw new ArgumentExceptions(`You don't have callback on ${name} event ${name}`); 
             }
 
             const index = this.eventsCollection[name].indexOf(callback);
-            this.eventsCollection[name].splic(index, 1);
+            this.eventsCollection[name].splice(index, 1);
         } else {
-            throw new ArgumentExceptions(`Callback can not be ${typeof callback}`); 
+            throw new ArgumentExceptions(`Callback can not be ${typeof callback} event ${name}`); 
         }
     }
 }
