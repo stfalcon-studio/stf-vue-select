@@ -28,7 +28,7 @@ Vue.component('stf-select', StfSelect);
 
 ## usage
 
-``` vue
+``` html
     <template>
   <div id="app">
     <img src="./assets/logo.png">
