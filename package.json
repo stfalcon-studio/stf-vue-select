@@ -1,6 +1,6 @@
 {
   "name": "stf-vue-select",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "description": "A Vue.js project",
   "author": "Andriy Syagrovskiy",
   "main": "dist/lib/stf-vue-select.min.js",
@@ -107,5 +107,14 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
+  ],
+  "keywords": [
+    "select",
+    "vue",
+    "custom",
+    "flexible",
+    "flexible select",
+    "vue select",
+    "dropdown"
   ]
 }

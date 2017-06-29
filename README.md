@@ -1,6 +1,6 @@
-# stf-vue-select VUE2
+# stf vue select VUE2
 
-> stf-vue-select - most flexable and customized select
+> stf vue select - most flexible and customized select
 
 For detailed explanation on how things work, checkout the [DEMO](https://stfalcon-studio.github.io/stf-vue-select/dist/)
 
