@@ -116,5 +116,9 @@
     "flexible select",
     "vue select",
     "dropdown"
-  ]
+  ],
+  "repository" :
+  { "type" : "git",
+    "url" : "https://github.com/stfalcon-studio/stf-vue-select"
+  }
 }
