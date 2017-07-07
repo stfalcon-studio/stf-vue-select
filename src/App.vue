@@ -32,7 +32,7 @@
         </div>
       </div>
       <div slot="search-input">
-          <input @input="onsearch">
+          <input placeholder="Input address" @input="onsearch">
       </div>
       <section class="options delivery_order__options">
           <stf-select-option  

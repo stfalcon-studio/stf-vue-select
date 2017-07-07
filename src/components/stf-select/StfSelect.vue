@@ -69,7 +69,7 @@ export default {
         window.removeEventListener("resize", this._runOnResize);
         window.removeEventListener("click", this._runOnWindowClick);
         eventHub.$off('stf-select-option.selected', this._optionSelectedCallback);
-        eventHub.$off('stf-select-option.mounted', this._onOptionMounted);
+        eventHub.$off('stf-select-option.mounted', this._onOptionsMounted);
         eventHub.$off("stf-select-option.destroyed", this._onOptionDestroyed);
         eventHub.$off("stf-select.opened", this._onOpenedSelect);
     },
