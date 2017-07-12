@@ -1,5 +1,7 @@
 # stf vue select VUE2
 
+[![Join the chat at https://gitter.im/stfalcon-studio/stf-vue-select](https://badges.gitter.im/stfalcon-studio/stf-vue-select.svg)](https://gitter.im/stfalcon-studio/stf-vue-select?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 > stf vue select - most flexible and customized select
 
 For detailed explanation on how things work, checkout the [DEMO](https://stfalcon-studio.github.io/stf-vue-select/dist/)
