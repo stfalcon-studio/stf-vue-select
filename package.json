@@ -119,7 +119,9 @@
     "vue.js",
     "vuejs",
     "vue2",
-    "select2"
+    "select2",
+    "ui",
+    "component"
   ],
   "repository" :
   { "type" : "git",
