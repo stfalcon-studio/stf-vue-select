@@ -1,6 +1,6 @@
 {
   "name": "stf-vue-select",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "description": "A Vue.js project",
   "author": "Andriy Syagrovskiy",
   "main": "dist/lib/stf-vue-select.min.js",
@@ -115,7 +115,11 @@
     "flexible",
     "flexible select",
     "vue select",
-    "dropdown"
+    "dropdown",
+    "vue.js",
+    "vuejs",
+    "vue2",
+    "select2"
   ],
   "repository" :
   { "type" : "git",
