@@ -1,6 +1,6 @@
 <script>
 import { eventHub } from './even-hub.js';
-import { getPosition, hasPositioFixedAncestor, isMob, addClass } from './dom-lib';
+import { getOffset, hasPositioFixedAncestor, isMob, addClass } from './dom-lib';
 import throttle from "lodash.throttle";
 
 export default {
@@ -30,10 +30,10 @@ export default {
             }
         };
 
-        this._onOptionDestroyed = (event) => { 
+        this._onOptionDestroyed = (event) => {
             if (event.selectId === this.idSelect) {
                 let index = this.options.indexOf(event.option);
-                
+
                 if (index !== -1) {
                     this.options.splice(index, 1);
                 }
@@ -66,11 +66,16 @@ export default {
     beforeDestroy() {
         document.body.removeChild(this.__selectOptionsWrapEl);
         window.removeEventListener("resize", this._runOnResize);
+        window.removeEventListener("scroll", this._runOnScroll);
         window.removeEventListener("click", this._runOnWindowClick);
         eventHub.$off('stf-select-option.selected', this._optionSelectedCallback);
         eventHub.$off('stf-select-option.mounted', this._onOptionMounted);
         eventHub.$off("stf-select-option.destroyed", this._onOptionDestroyed);
         eventHub.$off("stf-select.opened", this._onOpenedSelect);
+
+        if (this._optionsMutationObserver) {
+            this._optionsMutationObserver.disconnect();
+        }
     },
 
     mounted() {
@@ -81,6 +86,8 @@ export default {
 
         this._addwidowResizeListener();
         this._addOutClickListener();
+        this._initOnChangeDetection();
+        this._addwidowScrollListener();
 
         this._isMob = isMob();
         this._inputEl = this.$el.querySelector("input");
@@ -132,7 +139,7 @@ export default {
             ) {
                 this.isOpened = true;
                 addClass(this.$el, 'stf-select_opened');
-                
+
                 this.hasAncesroFixed = hasPositioFixedAncestor(this.$el);
                 eventHub.$emit('stf-select-option.opened', {
                     selectId: this.idSelect
@@ -195,17 +202,39 @@ export default {
                 return;
             }
 
-            this.hasAncesroFixed = hasPositioFixedAncestor(this.$el);
-            this.__selectOptionsEl.style.position = this.hasAncesroFixed ? 'fixed' : 'absolute';
-            const containerOffset = getPosition(this.__selectContainerEl);
-            this.__selectOptionsEl.style.top = containerOffset.top + this.__selectContainerEl.offsetHeight + 'px';
-            this.__selectOptionsEl.style.left = containerOffset.left + 'px';
-            this.__selectOptionsEl.style.width = this.__selectContainerEl.offsetWidth + 'px';
+            const optionsHeight =
+                (this.__selectOptionsEl &&
+                    this.__selectOptionsEl.getBoundingClientRect &&
+                    this.__selectOptionsEl.getBoundingClientRect().height) ||
+                0;
+            const containerOffset = getOffset(this.__selectContainerEl);
+
+            if (
+                (window.innerHeight ||
+                    document.documentElement.clientHeight ||
+                    document.body.clientHeight) +
+                window.pageYOffset >
+                containerOffset.top +
+                this.__selectContainerEl.clientHeight +
+                optionsHeight
+            ) {
+                this.hasAncesroFixed = hasPositioFixedAncestor(this.$el);
+                this.__selectOptionsEl.style.position = this.hasAncesroFixed ? 'fixed' : 'absolute';
+                this.__selectOptionsEl.style.top = containerOffset.top + this.__selectContainerEl.offsetHeight + 'px';
+                this.__selectOptionsEl.style.left = containerOffset.left + 'px';
+                this.__selectOptionsEl.style.width = this.__selectContainerEl.offsetWidth + 'px';
+            } else {
+                this.hasAncesroFixed = hasPositioFixedAncestor(this.$el);
+                this.__selectOptionsEl.style.position = this.hasAncesroFixed ? 'fixed' : 'absolute';
+                this.__selectOptionsEl.style.top = containerOffset.top - this.__selectContainerEl.clientHeight - 1 - optionsHeight + this.__selectContainerEl.offsetHeight + 'px';
+                this.__selectOptionsEl.style.left = containerOffset.left + 'px';
+                this.__selectOptionsEl.style.width = this.__selectContainerEl.offsetWidth + 'px';
+            }
         },
 
         _addwidowResizeListener() {
             const vm = this;
-            this._runOnResize = function (evt) {
+            this._runOnResize = function(evt) {
                 if (!vm._isMob) {
                     vm._close();
                 }
@@ -213,15 +242,36 @@ export default {
 
             window.addEventListener("resize", this._runOnResize);
         },
+        _addwidowScrollListener() {
+            const vm = this;
+            this._runOnScroll = throttle(function(evt) {
+                vm._calculatePositionAnsSize();
+            }, 100);
+
+            window.addEventListener("scroll", this._runOnScroll);
+        },
         _addOutClickListener() {
             const vm = this;
-            this._runOnWindowClick = function (evt) {
+            this._runOnWindowClick = function(evt) {
                 vm._close();
             };
 
             window.addEventListener("click", this._runOnWindowClick);
         },
+        _initOnChangeDetection() {
+            if (!MutationObserver) {
+                return;
+            }
 
+            this._optionsMutationObserver = new MutationObserver(
+                throttle(() => {
+                    this._calculatePositionAnsSize();
+                }, 100)
+            );
+
+            const config = { subtree: true, childList: true };
+            this._optionsMutationObserver.observe(this.__selectOptionsEl, config);
+        },
         _open() {
             this.isOpened = true;
             eventHub.$emit('stf-select-option.opened', {
@@ -234,7 +284,7 @@ export default {
                     inputEl.focus();
                     inputEl.select();
                 } else {
-                    const searchInpitEl = this.$el.querySelector(".stf-select__search-input") 
+                    const searchInpitEl = this.$el.querySelector(".stf-select__search-input")
                     if (searchInpitEl && searchInpitEl !== document.activeElement) {
                         searchInpitEl.focus();
                     }

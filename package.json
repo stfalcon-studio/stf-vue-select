@@ -1,6 +1,6 @@
 {
   "name": "stf-vue-select",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A Vue.js project",
   "author": "Andriy Syagrovskiy",
   "main": "dist/lib/stf-vue-select.min.js",
@@ -123,8 +123,8 @@
     "ui",
     "component"
   ],
-  "repository" :
-  { "type" : "git",
-    "url" : "https://github.com/stfalcon-studio/stf-vue-select"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stfalcon-studio/stf-vue-select"
   }
 }

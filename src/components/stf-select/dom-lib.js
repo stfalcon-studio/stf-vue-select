@@ -1,14 +1,27 @@
-export function getPosition(obj) {
-  var curleft = 0;
-  var curtop = 0;
-  if (obj.offsetParent) {
-    do {
-      curleft += obj.offsetLeft;
-      curtop += obj.offsetTop;
-    } while (obj = obj.offsetParent);
-    return { left: curleft, top: curtop };
+export function getOffset(obj) {
+  let rect;
+  let win;
+  const elem = obj;
+
+  if (!elem) {
+    return;
   }
-  return undefined;
+
+  // Return zeros for disconnected and hidden (display: none) elements (gh-2310)
+  // Support: IE <=11 only
+  // Running getBoundingClientRect on a
+  // disconnected node in IE throws an error
+  if (!elem.getClientRects().length) {
+    return { top: 0, left: 0 };
+  }
+
+  // Get document-relative position by adding viewport scroll to viewport-relative gBCR
+  rect = elem.getBoundingClientRect();
+  win = elem.ownerDocument.defaultView;
+  return {
+    top: rect.top + win.pageYOffset,
+    left: rect.left + win.pageXOffset
+  };
 }
 
 export function findAncestor(el, sel) {
@@ -26,7 +39,9 @@ export function findAncestor(el, sel) {
 
 export function hasPositioFixedAncestor(el) {
   while (el) {
-    if (window.getComputedStyle(el, null).getPropertyValue('position') === "fixed") {
+    if (
+      window.getComputedStyle(el, null).getPropertyValue('position') === 'fixed'
+    ) {
       return true;
     }
     el = el.parentElement;
@@ -35,7 +50,8 @@ export function hasPositioFixedAncestor(el) {
 }
 
 export function isMob() {
-  if (navigator.userAgent.match(/Android/i) ||
+  if (
+    navigator.userAgent.match(/Android/i) ||
     navigator.userAgent.match(/webOS/i) ||
     navigator.userAgent.match(/iPhone/i) ||
     navigator.userAgent.match(/iPad/i) ||
@@ -72,16 +88,16 @@ export function addClass(el, className) {
   if (el.classList) {
     el.classList.add(className);
   } else if (!hasClass(el, className)) {
-     el.className += " " + className;
+    el.className += ' ' + className;
   }
 }
 
 export function removeClass(el, className) {
   if (el.classList) {
-    el.classList.remove(className)
+    el.classList.remove(className);
   } else if (hasClass(el, className)) {
-    var reg = new RegExp('(\\s|^)' + className + '(\\s|$)')
-    el.className = el.className.replace(reg, ' ')
+    var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
+    el.className = el.className.replace(reg, ' ');
   }
 }
 
@@ -92,10 +108,10 @@ if (!Element.prototype.matches) {
     Element.prototype.msMatchesSelector ||
     Element.prototype.oMatchesSelector ||
     Element.prototype.webkitMatchesSelector ||
-    function (s) {
+    function(s) {
       const matches = (this.document || this.ownerDocument).querySelectorAll(s);
       let i = matches.length;
-      while (--i >= 0 && matches.item(i) !== this) { }
+      while (--i >= 0 && matches.item(i) !== this) {}
       return i > -1;
     };
 }
