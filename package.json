@@ -1,6 +1,6 @@
 {
   "name": "stf-vue-select",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "A Vue.js project",
   "author": "Andriy Syagrovskiy",
   "main": "dist/lib/stf-vue-select.min.js",
