@@ -418,7 +418,7 @@ function loadMore() {
     this.$emit('loadMore', {});
   }
 }
-</script> 
+</script>
 
 <template src="./stf-select.html" ></template>
 
