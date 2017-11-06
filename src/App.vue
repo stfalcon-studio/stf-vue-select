@@ -24,7 +24,7 @@
 
     <br>
     <label>Select with input</label>
-    <stf-select v-model="value" style="width: 300px; margin: 0 auto">
+    <stf-select :needFocusInpOnTab="true" v-model="value" style="width: 300px; margin: 0 auto">
       <div slot="label">Input address</div>
       <div slot="value">
         <div v-if="value">
@@ -32,7 +32,7 @@
         </div>
       </div>
       <div slot="search-input">
-          <input placeholder="Input address" @input="onsearch">
+          <input class="stf-select__search-input" placeholder="Input address" @input="onsearch">
       </div>
       <section class="options delivery_order__options">
           <stf-select-option  

@@ -19,7 +19,7 @@ export default {
         );
         this._beforeSetValueFocus = true;
         searchInpitEl && searchInpitEl.focus();
-        this._beforeSetValueFocus = false;
+        setTimeout(() => this._beforeSetValueFocus = false);
       }
 
       if (event.selectId !== this.idSelect) {
