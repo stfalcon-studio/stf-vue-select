@@ -28,6 +28,15 @@ Vue.component('stf-select', StfSelect);
 
 ```
 
+## Using without webpack minified files
+
+``` js
+<script src="./dist/lib/stf-vue-select.min.js"></script>
+
+Vue.use(StfSelectPlugin) 
+
+```
+
 ## usage
 
 ``` html
